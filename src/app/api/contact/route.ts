@@ -1,6 +1,5 @@
 ﻿import { NextResponse } from "next/server";
 import { siteConfig } from "@/lib/site";
-export const runtime = "nodejs";
 const subjects = new Set(["PhD / Research Opportunity", "Research Collaboration", "Project Inquiry", "Other"]);
 const limits = new Map<string, { count: number; resetAt: number }>();
 const fail = (error: string, status: number) => NextResponse.json({ error }, { status });
@@ -13,7 +12,7 @@ export async function POST(request: Request) {
   try { body = await request.json(); } catch { return fail("Invalid form submission.", 400); }
   if (!body || typeof body !== "object") return fail("Invalid form submission.", 400);
   const data = body as Record<string, unknown>;
-  if (typeof data.website === "string" && data.website.trim()) return fail("Invalid form submission.", 400);
+  if (typeof data.company === "string" && data.company.trim()) return fail("Invalid form submission.", 400);
 
   const name = typeof data.name === "string" ? data.name.trim() : "";
   const email = typeof data.email === "string" ? data.email.trim() : "";
@@ -42,9 +41,11 @@ export async function POST(request: Request) {
       signal: AbortSignal.timeout(10_000),
     });
     if (!response.ok) return fail("Email service could not accept your message. Please try later or email me directly.", 502);
-    return NextResponse.json({ message: "Your message was accepted for delivery. Thank you for getting in touch." });
+    return NextResponse.json({ message: "Thank you for getting in touch." });
   } catch {
     return fail("Email service is temporarily unavailable. Please try later or email me directly.", 502);
   }
 }
+
+
 
