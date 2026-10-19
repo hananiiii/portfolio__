@@ -43,7 +43,7 @@ export const education = {
     institution: "Lycée Bouazza Miloud",
     location: "Algeria · 2018–2021",
     qualification: "Algerian Baccalaureate — Scientific Stream",
-    average: "17.49/20",
+    average: "17.46/20",
   },
   // period: "20XX to 20XX",      // add when verified
   // honors: "...",               // add only if officially awarded
